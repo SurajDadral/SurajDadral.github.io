@@ -39,7 +39,7 @@ sed -i "119i try:" src/librehatti/reports/forms.py
 sed -i "123i except:" src/librehatti/reports/forms.py   
 sed -i "124i session_choices = [('', '--------')]" src/librehatti/reports/forms.py   
 sed -i "119,123s/^/    /g" src/librehatti/reports/forms.py   
-ed -i "125i\ " src/librehatti/reports/forms.py
+sed -i "125i\ " src/librehatti/reports/forms.py
 sed -i "124s/^/        /g" src/librehatti/reports/forms.py   
 ```
 * Now, again after executing command **```python manage.py makemigrations```** I got below similar error:
