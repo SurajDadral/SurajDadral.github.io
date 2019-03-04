@@ -69,5 +69,43 @@ sed -i "138s/^/        /g" src/librehatti/reports/forms.py
 * When I executed **```python manage.py migrate```** then it gives below error:
     django.db.utils.IntegrityError: (1215, 'Cannot add foreign key constraint')
 
-To be continue...
+* Now, I reverted the changes made in file "src/librehatti/reports/forms.py" using below commands:
+```
+sed -i "135d;138,140d;" src/librehatti/reports/forms.py
+sed -i "135,136s/^    //g" src/librehatti/reports/forms.py
+sed -i "119d;123,125d;" src/librehatti/reports/forms.py
+sed -i "119,120s/^    //g" src/librehatti/reports/forms.py
+```
+Or   
+```git checkout -- src/librehatti/reports/forms.py```
+
+* Now, I executed **```python manage.py migrate --run-syncdb```** and it gives:
+    Operations to perform:
+        Synchronize unmigrated apps: admindocs, ajax_select, bills, catalog, messages, mptt, prints, programmeletter, reports, staticfiles, suit, suspense, tinymce, useraccounts
+    Apply all migrations: admin, auth, contenttypes, sessions, sites, voucher
+    Synchronizing apps without migrations:
+    Creating tables...
+        Creating table catalog_mcategory
+        Creating table catalog_unit
+        Creating table catalog_category
+        Creating table catalog_product
+
+    and error:
+        django.db.utils.OperationalError: (1050, "Table 'voucher_calculatedistribution' already exists")
+
+* Then, I executed **```python manage.py migrate --fake-initial```** and it gives:
+    Operations to perform:
+      Apply all migrations: admin, auth, contenttypes, sessions, sites, voucher
+    Running migrations:
+      Applying voucher.0001_initial... FAKED
+
+* After that I executed  **```python manage.py migrate```** and it gives:
+    Operations to perform:
+      Apply all migrations: admin, auth, contenttypes, sessions, sites, voucher
+    Running migrations:
+      No migrations to apply.
+
+* So, now LibreHatti is installed successfully without importing Sample Database.
+
+Thanks.
 
